@@ -100,8 +100,6 @@ experiment = sieve_experiment(m,n,duration)
 pos,arrangement = DrawSieve(disp)
 
 for its in range(1,duration):
-#    if (its != 1): 
-#        plt.close(fig) #Get rid of the old fig.
     fig,raw_data,canvas = CreatePlot(experiment,its)
     if (its == 1):
         size2 = canvas.get_width_height()
