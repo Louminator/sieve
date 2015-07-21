@@ -1,5 +1,5 @@
 # sieve
-Some Python code to study and simulate a simple 1-dimensional sieve
+Some Python code to study and simulate a simple 1-dimensional sieve.
 
 In 2007, W. L. Gore and Associates brought a filtration problem to the Mathematical Problems in Industry workshop.
 Some nice mathematics came out of it, including a very simple model for sieving.
@@ -11,3 +11,4 @@ http://www.maa.org/programs/faculty-and-departments/pic-math/solving-real-world-
 
 I am sharing some of the code I used.
 
+Requires: Python + scipy + pygame.
