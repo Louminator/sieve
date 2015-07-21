@@ -9,15 +9,10 @@ A sieve simulation program.
 
 from scipy import *
 from scipy.special import lambertw
-
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.backends.backend_agg as agg
-
 from numpy.random import uniform,permutation
 
+import matplotlib.backends.backend_agg as agg
 import pygame
-
 import matplotlib.pyplot as plt
  
 class sieve_experiment():
@@ -41,7 +36,7 @@ class sieve_experiment():
         self.s = r_[0:T:1000j]
 
         c = log(phi0*exp(phi0))
-        self.phi = lambertw(exp(-self.s+c))
+        self.phi = lambertw(exp(-self.s+c)).real
         self.p = self.phi/(1.+self.phi)
 
 def CreatePlot(experiment,ind):
@@ -49,6 +44,8 @@ def CreatePlot(experiment,ind):
     ax = fig.gca()
     ax.plot(experiment.s,experiment.p,'c')
     ax.plot(experiment.sims[:ind],experiment.simp[:ind],'xb')
+    plt.xlabel('time (t)',fontsize=12)
+    plt.title('Probability',fontsize=12)
     ax.legend(('Theory','Experiment'),numpoints=1)
     canvas = agg.FigureCanvasAgg(fig)
     canvas.draw()
@@ -98,16 +95,17 @@ disp.fill((0,0,0))
 m = 100
 n = 20
 duration = 300
+
 experiment = sieve_experiment(m,n,duration)
-
-fig,raw_data,canvas = CreatePlot(experiment,1)
-size2 = canvas.get_width_height()
-
 pos,arrangement = DrawSieve(disp)
 
 for its in range(1,duration):
-    plt.close(fig)
+#    if (its != 1): 
+#        plt.close(fig) #Get rid of the old fig.
     fig,raw_data,canvas = CreatePlot(experiment,its)
+    if (its == 1):
+        size2 = canvas.get_width_height()
+        
     surf = pygame.image.fromstring(raw_data, size2, "ARGB")
     if (experiment.smallPores[its-1] == experiment.smallPores[its]):
         # Fall into the next large pore.
@@ -120,3 +118,4 @@ for its in range(1,duration):
         idx = argwhere(arrangement == experiment.smallPores[its])
         idx = idx[0][0]
         ParticleStuck(idx,surf)
+    plt.close(fig)
