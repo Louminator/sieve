@@ -25,6 +25,8 @@ class sieve_experiment():
             else:
                 smallPores.append(smallPores[-1]-1)
         self.smallPores = array(smallPores)
+        self.simphi = double(smallPores)/n
+
         
         T = 1.0*iterations/n
         simphi = double(smallPores)/n

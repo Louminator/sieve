@@ -14,8 +14,6 @@ import matplotlib.backends.backend_agg as agg
 import pygame
 import matplotlib.pyplot as plt
 
-#from sieve_experiment import sieve_experiment
-
 from sieve_experiment import *
 
 class sieve_animate(sieve_experiment):
@@ -29,7 +27,6 @@ class sieve_animate(sieve_experiment):
         self.disp = pygame.display.set_mode(self.size)
         self.disp.fill((0,0,0))
         
-#        self.pos,self.arrangement = self.DrawSieve()
         self.DrawSieve()
         
     def play(self):
@@ -54,7 +51,7 @@ class sieve_animate(sieve_experiment):
             plt.close(fig)
         
     def DrawSieve(self):
-        self.pos = map(int,self.size[0]/(m+n+1.)*r_[0:self.m+self.n]+2.5)
+        self.pos = map(int,self.size[0]/(self.m+self.n+1.)*r_[0:self.m+self.n]+2.5)
         self.arrangement = permutation(self.n+self.m)
         
         pygame.draw.rect(self.disp,(0,255,0),(0,self.size[1]-20,self.size[0],20))
@@ -64,7 +61,6 @@ class sieve_animate(sieve_experiment):
             else:
                 pygame.draw.rect(self.disp,(0,0,0),(self.pos[k]-1,self.size[1]-20,3,20))
         pygame.display.flip()
-#        return(pos,arrangement)
 
     def CreatePlot(self,ind):
         fig = plt.figure(figsize=[self.size[0]/100, (self.size[1]-40)/100], dpi=100)
@@ -98,5 +94,3 @@ class sieve_animate(sieve_experiment):
         pygame.draw.rect(self.disp,(255,0,0),(self.pos[ind],self.size[1]-23,2,2))
         pygame.display.flip()
         
-experiment = sieve_animate()
-experiment.play()
